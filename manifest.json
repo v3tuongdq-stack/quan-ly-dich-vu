@@ -1,0 +1,21 @@
+{
+  "name": "ProFix 24/7 - Dịch Vụ Kỹ Thuật Tổng Hợp",
+  "short_name": "ProFix 24/7",
+  "description": "Đặt lịch dịch vụ sửa chữa điện, nước, camera và bảo trì tổng hợp tận nhà.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1043/1043977.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1043/1043977.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

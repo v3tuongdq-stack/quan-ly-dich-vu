@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProFix 24/7 - Dịch Vụ Kỹ Thuật Tổng Hợp</title>
+    
+    <!-- Cấu hình PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ProFix 24/7">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1043/1043977.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-20">
+
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md shadow-blue-200">
+                    <i class="fa-solid fa-wrench"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-900 leading-none">ProFix 24/7</h1>
+                    <p class="text-xs text-slate-500 mt-1">Dịch Vụ Kỹ Thuật Tổng Hợp</p>
+                </div>
+            </div>
+            <button onclick="scrollToSection('booking-form')" class="bg-blue-600 text-white text-xs font-semibold px-3 py-2 rounded-lg hover:bg-blue-700 transition">
+                <i class="fa-solid fa-calendar-plus mr-1"></i> Đặt Lịch
+            </button>
+        </div>
+    </header>
+
+    <!-- Banner Quảng Cáo -->
+    <main class="max-w-4xl mx-auto px-4 pt-4">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-xl mb-6 relative overflow-hidden">
+            <div class="relative z-10">
+                <span class="bg-blue-500/40 text-blue-100 text-xs font-semibold px-2.5 py-1 rounded-full border border-blue-400/30">
+                    NHANH CHÓNG & UY TÍN
+                </span>
+                <h2 class="text-2xl font-bold mt-3 mb-2 leading-tight">Giải pháp kỹ thuật chuyên nghiệp tận nhà</h2>
+                <p class="text-blue-100 text-sm max-w-md">Chuyên sửa chữa điện, nước, lắp đặt camera an ninh và bảo trì tổng hợp với đội ngũ kỹ thuật viên giàu kinh nghiệm.</p>
+                <button onclick="scrollToSection('services')" class="mt-4 bg-white text-blue-600 font-semibold px-4 py-2 rounded-xl text-sm shadow hover:bg-blue-50 transition inline-flex items-center gap-1">
+                    Đặt Lịch Ngay <i class="fa-solid fa-arrow-down text-xs"></i>
+                </button>
+            </div>
+            <i class="fa-solid fa-house-chimney-crack absolute -right-6 -bottom-6 text-9xl text-white/10 pointer-events-none"></i>
+        </div>
+
+        <!-- Danh Mục Dịch Vụ -->
+        <section id="services" class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-slate-900 text-lg">Danh Mục Dịch Vụ</h3>
+                <span class="text-xs text-slate-500">Chọn dịch vụ bên dưới</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- Dịch vụ 1 -->
+                <div onclick="selectService('Sửa chữa Điện - Đèn', '95.000')" class="service-card cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-blue-500 transition shadow-sm hover:shadow">
+                    <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-amber-600 uppercase tracking-wider">Hệ Thống Điện</span>
+                    <h4 class="font-semibold text-slate-800 text-sm mt-0.5">Sửa Điện & Lắp Đèn</h4>
+                    <p class="text-xs text-blue-600 font-bold mt-2">Từ 95.000đ/m</p>
+                </div>
+                <!-- Dịch vụ 2 -->
+                <div onclick="selectService('Sửa chữa Điện Nước', '150.000')" class="service-card cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-blue-500 transition shadow-sm hover:shadow">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Hệ Thống Nước</span>
+                    <h4 class="font-semibold text-slate-800 text-sm mt-0.5">Sửa Đường Nước</h4>
+                    <p class="text-xs text-blue-600 font-bold mt-2">Từ 150.000đ/lần</p>
+                </div>
+                <!-- Dịch vụ 3 -->
+                <div onclick="selectService('Lắp đặt Camera An Ninh', '250.000')" class="service-card cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-blue-500 transition shadow-sm hover:shadow">
+                    <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-purple-600 uppercase tracking-wider">An Ninh</span>
+                    <h4 class="font-semibold text-slate-800 text-sm mt-0.5">Lắp Camera Giám Sát</h4>
+                    <p class="text-xs text-blue-600 font-bold mt-2">Từ 250.000đ/mắt</p>
+                </div>
+                <!-- Dịch vụ 4 -->
+                <div onclick="selectService('Bảo trì Dịch Vụ Tổng Hợp', '200.000')" class="service-card cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-blue-500 transition shadow-sm hover:shadow">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Đa Năng</span>
+                    <h4 class="font-semibold text-slate-800 text-sm mt-0.5">Bảo Trì Tổng Hợp</h4>
+                    <p class="text-xs text-blue-600 font-bold mt-2">Khảo sát báo giá</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Đặt Lịch -->
+        <section id="booking-form" class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm mb-8">
+            <h3 class="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-calendar-check text-blue-600"></i> Đặt Lịch Sửa Chữa
+            </h3>
+            <form id="appointmentForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Dịch vụ chọn *</label>
+                    <input type="text" id="selectedService" required readonly placeholder="Nhấp chọn dịch vụ bên trên" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Họ & Tên khách hàng *</label>
+                        <input type="text" id="customerName" required placeholder="Nhập họ tên" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Số điện thoại *</label>
+                        <input type="tel" id="customerPhone" required placeholder="Nhập số điện thoại" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Địa chỉ thực hiện *</label>
+                    <input type="text" id="customerAddress" required placeholder="Số nhà, đường, xã/phường..." class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Mô tả sự cố / Ghi chú</label>
+                    <textarea id="issueNotes" rows="3" placeholder="Ví dụ: Đèn phòng khách bị nhấp nháy, cần đi lại dây điện..." class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-blue-200 transition text-sm">
+                    Xác Nhận Đặt Lịch
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Navigation Bar Dưới Cùng (Kiểu App Di Động) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 py-2 px-6 flex justify-around z-50">
+        <button onclick="scrollToSection('services')" class="flex flex-col items-center text-blue-600">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] font-semibold mt-0.5">Trang chủ</span>
+        </button>
+        <button onclick="scrollToSection('booking-form')" class="flex flex-col items-center text-slate-400 hover:text-blue-600">
+            <i class="fa-solid fa-calendar-plus text-lg"></i>
+            <span class="text-[10px] font-semibold mt-0.5">Đặt lịch</span>
+        </button>
+        <a href="tel:0901234567" class="flex flex-col items-center text-slate-400 hover:text-blue-600">
+            <i class="fa-solid fa-phone text-lg"></i>
+            <span class="text-[10px] font-semibold mt-0.5">Hotline</span>
+        </a>
+    </nav>
+
+    <!-- JavaScript Logic & PWA Service Worker Registration -->
+    <script>
+        function selectService(name, price) {
+            document.getElementById('selectedService').value = name + " (Tạm tính: " + price + "đ)";
+            scrollToSection('booking-form');
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const service = document.getElementById('selectedService').value;
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            
+            alert(`Cảm ơn ${name}! Yêu cầu đặt lịch dịch vụ "${service}" đã được tiếp nhận. Chúng tôi sẽ gọi lại SĐT ${phone} trong ít phút!`);
+            document.getElementById('appointmentForm').reset();
+        }
+
+        // Đăng ký Service Worker cho PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('PWA Service Worker đã hoạt động!', reg.scope))
+                    .catch(err => console.log('Lỗi đăng ký PWA:', err));
+            });
+        }
+    </script>
+</body>
+</html>
