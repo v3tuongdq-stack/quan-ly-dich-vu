@@ -126,19 +126,31 @@
             };
 
             // THAY SERVICE ID & TEMPLATE ID CỦA ANH VÀO DÒNG DƯỚI
-            emailjs.send("v3tuongdq@gmail.com", "template_mwbfbaq", templateParams)
-                .then(function(response) {
-                    alert('🎉 Đặt lịch thành công! Kỹ thuật viên ProFix 24/7 sẽ liên hệ với bạn trong thời gian sớm nhất.');
-                    document.getElementById('bookingForm').reset();
-                }, function(error) {
-                    alert('⚠️ Có lỗi xảy ra khi gửi đơn. Vui lòng thử lại hoặc gọi trực tiếp Hotline!');
-                    console.error('Lỗi EmailJS:', error);
-                })
-                .finally(function() {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Xác Nhận Đặt Lịch</span>';
-                });
-        }
+           emailjs.send("v3tuongdq@gmail.com", "template_mwbfbaq", templateParams)
+    .then(function(response) {
+        // Gửi thông báo đẩy qua ntfy
+        const message = `🔧 Đơn mới!\nTên: ${templateParams.user_name}\nSĐT: ${templateParams.user_phone}\nDịch vụ: ${templateParams.service_name}\nĐịa chỉ: ${templateParams.user_address}`;
+        
+        fetch('https://ntfy.sh/giahuyeakar', {
+            method: 'POST',
+            body: message,
+            headers: {
+                'Title': 'ProFix 24/7 - Đơn đặt lịch mới',
+                'Priority': 'high',
+                'Tags': 'wrench,bell'
+            }
+        });
+
+        alert('🎉 Đặt lịch thành công! Kỹ thuật viên ProFix 24/7 sẽ liên hệ với bạn trong thời gian sớm nhất.');
+        document.getElementById('bookingForm').reset();
+    }, function(error) {
+        alert('⚠️ Có lỗi xảy ra khi gửi đơn. Vui lòng thử lại hoặc gọi trực tiếp Hotline!');
+        console.error('Lỗi EmailJS:', error);
+    })
+    .finally(function() {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Xác Nhận Đặt Lịch</span>';
+    });
 
         // Đăng ký Service Worker cho PWA
         if ('serviceWorker' in navigator) {
