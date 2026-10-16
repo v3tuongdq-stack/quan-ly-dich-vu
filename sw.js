@@ -1,42 +1,91 @@
-const CACHE_NAME = 'profix-v1';
-const ASSETS_TO_CACHE = [
+
+const CACHE_NAME = 'profix-v2';
+
+const APP_FILES = [
   './',
   './index.html',
-  './manifest.json',
-  'https://cdn.tailwindcss.com',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+  './manifest.json'
 ];
 
-// Cài đặt Service Worker
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Caching app assets');
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
-  );
-});
-
-// Kích hoạt & dọn dẹp Cache cũ
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
+// Cài đặt và lưu các file cốt lõi
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(async (cache) => {
+        for (const file of APP_FILES) {
+          try {
+            await cache.add(file);
+          } catch (error) {
+            console.warn('Không thể lưu cache:', file, error);
           }
-        })
-      );
-    })
+        }
+      })
+      .then(() => self.skipWaiting())
   );
 });
 
-// Phản hồi yêu cầu mạng
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((cachedResponse) => {
-      return cachedResponse || fetch(e.request);
+// Kích hoạt và xóa cache phiên bản cũ
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys()
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key !== CACHE_NAME)
+            .map((key) => caches.delete(key))
+        )
+      )
+      .then(() => self.clients.claim())
+  );
+});
+
+// Xử lý yêu cầu GET cùng nguồn
+self.addEventListener('fetch', (event) => {
+  const request = event.request;
+
+  if (request.method !== 'GET') return;
+
+  const url = new URL(request.url);
+
+  // Không can thiệp yêu cầu tới CDN hoặc máy chủ khác
+  if (url.origin !== self.location.origin) return;
+
+  // Tải trang từ mạng trước; mất mạng thì dùng bản cache
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME)
+              .then((cache) => cache.put('./index.html', copy));
+          }
+          return response;
+        })
+        .catch(async () => {
+          return (
+            await caches.match(request) ||
+            await caches.match('./index.html') ||
+            Response.error()
+          );
+        })
+    );
+    return;
+  }
+
+  // Các file cùng nguồn: ưu tiên cache, sau đó tải mạng
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+
+      return fetch(request).then((response) => {
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME)
+            .then((cache) => cache.put(request, copy));
+        }
+        return response;
+      });
     })
   );
 });
